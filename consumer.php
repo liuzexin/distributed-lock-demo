@@ -10,7 +10,8 @@ if ($redis->get(productCount) <= 0){
 }
 
 if ($redis->setNx(key, '1')){
-
+    $redis->expire(key, 3);
+    //TODO:Deal with bussiness.
     file_put_contents('/tmp/test.log','SUCCESS' . PHP_EOL, FILE_APPEND);
     $redis->decr(productCount);
     $redis->del(key); 
